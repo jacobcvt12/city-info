@@ -3,7 +3,7 @@ from BeautifulSoup import BeautifulSoup
 from requests import get, post
 from requests.exceptions import Timeout, ConnectionError
 from socket import timeout
-from re import sub, search
+from re import sub, search, findall
 from time import sleep
 from stateabb import state_to_abbrev
 from sys import stderr
@@ -41,7 +41,9 @@ if __name__ == '__main__':
                 continue
             line = search('Population, 2013 estimate.*', r.text).group(0)
             regex = '>([1-9](?:\d{0,2})(?:,\d{3})*)'
-            population = search(regex, line).group(1)
+            population = 0
+            if len(findall(regex, line)) == 2:
+                population = search(regex, line).group(1)
             line = search('Persons per square mile, 2010.*',
                           r.text).group(0)
             regex = regex[:-1] + '(?:\.\d*[1-9])?|0?\.\d*[1-9]|0)'
