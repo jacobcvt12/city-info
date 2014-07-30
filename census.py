@@ -62,4 +62,5 @@ if __name__ == '__main__':
                                    state_abbrev,
                                    population.replace(',', ''),
                                    density.replace(',', ''))
+            sleep(0.5)
         stderr.write('\n')
