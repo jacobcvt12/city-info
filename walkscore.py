@@ -41,11 +41,11 @@ def get_walk_score(city, state):
 if __name__ == '__main__':
     for line in input():
         sleep(1)
-        split_line = line.split(' ')
-        state = split_line[-3]
+        split_line = line.replace('\n', '').split(' ')
         city = ' '.join(split_line[:-3])
+        state, pop, density = split_line[-3:]
 
         score = get_walk_score(city, state)
 
-        print '%s,%s,%s,%s,%s' % (city, state,
-                                  score[0], score[1], score[2])
+        print '%s,%s,%s,%s,%s,%s,%s' % (city, state, pop, density,
+                                        score[0], score[1], score[2])
