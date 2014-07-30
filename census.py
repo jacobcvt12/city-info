@@ -35,18 +35,7 @@ if __name__ == '__main__':
             city_name = sub(' \(.*\)', '', city.contents[0])
             try:
                 r = post(location, {'Location': city['value']}, timeout=5)
-            except Timeout:
-                try:
-                    r = post(location, {'Location': city['value']}, timeout=30)
-                except Timeout:
-                    print '%s %s %s %s' % (city_name, state_abbrev, '0', '0')
-                    stderr.write('\n')
-                    continue
-            except timeout:
-                print '%s %s %s %s' % (city_name, state_abbrev, '0', '0')
-                stderr.write('\n')
-                continue
-            except ConnectionError:
+            except (Timeout, timeout, ConnectionError) as e:
                 print '%s %s %s %s' % (city_name, state_abbrev, '0', '0')
                 stderr.write('\n')
                 continue
